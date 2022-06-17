@@ -12,40 +12,40 @@ jobs:
     runs-on: windows-2019
     timeout-minutes: 10
     steps:
-    
       - name: Download Tools
         run: |
           [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
           Invoke-WebRequest -Verbose -Uri https://github.com/moloch--/minisign/releases/download/v0.2.1/minisign.exe -OutFile minisign.exe
           ls
-    
+
       - name: checkout code
         uses: actions/checkout@v3
-        
+
       - name: setup-msbuild
         uses: microsoft/setup-msbuild@v1.1
-        with: 
+        with:
           msbuild-architecture: x64
-        
+
       - name: build_x64
         run: "msbuild -p:Configuration=Release -p:Platform=x64 SliverKeylogger.sln"
-      
+
       - name: setup-msbuild
         uses: microsoft/setup-msbuild@v1.1
         with:
           msbuild-architecture: x86
-        
+
       - name: build_x86
         run: "msbuild -p:Configuration=Release -p:Platform=x86 SliverKeylogger.sln"
-        
+
       - name: make package
         run: |
           mkdir raw-keylogger
           copy bin\\SliverKeylogger.x86.dll raw-keylogger\\SliverKeylogger.x86.dll
           copy bin\\SliverKeylogger.x64.dll raw-keylogger\\SliverKeylogger.x64.dll
           copy extension.json raw-keylogger\\extension.json
-          tar -czvf raw-keylogger.tar.gz raw-keylogger
-          
+          cd raw-keylogger
+          tar -czvf ..\raw-keylogger.tar.gz .
+
       - name: sign package
         run: |
           Write-Output "${{ secrets.MINISIGN_PRIVATE_KEY }}" > minisign.key
@@ -56,7 +56,7 @@ jobs:
           Invoke-WebRequest -Verbose -Uri https://github.com/moloch--/minisign/releases/download/v0.2.1/minisign.exe -OutFile minisign.exe
           ls
           .\minisign.exe -s minisign.key -S -m raw-keylogger.tar.gz -t "$Encoded" -x raw-keylogger.minisig
-          
+
       - name: "Publish Release"
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
@@ -65,5 +65,3 @@ jobs:
           files: |
             raw-keylogger.minisig
             raw-keylogger.tar.gz
-          
-    
