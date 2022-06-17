@@ -8,15 +8,15 @@
     "help": "Logs keystrokes using the raw input interface\n\t0 = stop\n\t1 = start\n\t2 = get keystrokes",
     "entrypoint": "entrypoint",
     "files": [
-    {
-    "os": "windows",
-    "arch": "amd64",
-    "path": "SliverKeylogger.x64.dll"
-    },
-    {
-    "os": "windows",
-    "arch": "386",
-    "path": "SliverKeylogger.x86.dll"
-    }
+        {
+            "os": "windows",
+            "arch": "amd64",
+            "path": "SliverKeylogger.x64.dll"
+        },
+        {
+            "os": "windows",
+            "arch": "386",
+            "path": "SliverKeylogger.x86.dll"
+        }
     ]
-    }
+}
