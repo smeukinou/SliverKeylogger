@@ -1,7 +1,7 @@
 {
-    "name": "raw_keylogger",
+    "name": "raw-keylogger",
     "version": "0.0.1",
-    "command_name": "raw_keylogger",
+    "command_name": "raw-keylogger",
     "extension_author": "TrustedSec",
     "original_author": "TrustedSec",
     "repo_url": "https://github.com/sliverarmory/SliverKeylogger",
