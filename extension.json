@@ -6,7 +6,7 @@
     "original_author": "TrustedSec",
     "repo_url": "https://github.com/sliverarmory/SliverKeylogger",
     "help": "Logs keystrokes using the raw input interface",
-    "long_help": "Logs keystrokes using the raw input interface\n\t0 = stop\n\t1 = start\n\t2 = get keystrokes\\Note: Leverage this extension from a session",
+    "long_help": "Logs keystrokes using the raw input interface\n\t0 = stop\n\t1 = start\n\t2 = get keystrokes\n\nNote: Leverage this extension from a session\n",
     "entrypoint": "entrypoint",
     "files": [
         {
