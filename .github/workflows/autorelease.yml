@@ -45,7 +45,7 @@ jobs:
           copy bin\\SliverKeylogger.x64.dll raw-keylogger\\SliverKeylogger.x64.dll
           copy extension.json raw-keylogger\\extension.json
           $Version = git.exe describe --tags --abbrev=0
-          Get-Content -Path alias.json | jq.exe --arg ver "$Version" '.version |= $ver' > .\raw-keylogger\extension.json
+          Get-Content -Path extension.json | jq.exe --arg ver "$Version" '.version |= $ver' > .\raw-keylogger\extension.json
           cd raw-keylogger
           tar -czvf ..\raw-keylogger.tar.gz .
 
