@@ -15,6 +15,7 @@ jobs:
       - name: Download Tools
         run: |
           [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+          Invoke-WebRequest -Uri https://github.com/stedolan/jq/releases/download/jq-1.6/jq-win64.exe -OutFile jq.exe
           Invoke-WebRequest -Verbose -Uri https://github.com/moloch--/minisign/releases/download/v0.2.1/minisign.exe -OutFile minisign.exe
           ls
 
@@ -43,6 +44,8 @@ jobs:
           copy bin\\SliverKeylogger.x86.dll raw-keylogger\\SliverKeylogger.x86.dll
           copy bin\\SliverKeylogger.x64.dll raw-keylogger\\SliverKeylogger.x64.dll
           copy extension.json raw-keylogger\\extension.json
+          $Version = git.exe describe --tags --abbrev=0
+          Get-Content -Path extension.json | jq.exe --arg ver "$Version" '.version |= $ver' > .\raw-keylogger\extension.json
           cd raw-keylogger
           tar -czvf ..\raw-keylogger.tar.gz .
 
